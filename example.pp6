@@ -1,0 +1,12 @@
+
+fun foldr (args : ((int * int) -> int) * (int * int list)) : int = 
+  match snd (snd args) with
+  | [] -> fst (snd args)
+  | x :: xs -> (fst args) (x, foldr (fst args, (fst (snd args), xs)))
+
+fun map(args : (int -> int) * (int list)) : int list = 
+  match snd args with
+  | [] -> [] : int list
+  | x :: xs -> (fst args) x :: map (fst args, xs)
+  
+input x y z in foldr((fn(args : int * int) -> fst args + snd args) , (0, map ((fn (n : int) -> n * n), [x, y, z] : int list)))
